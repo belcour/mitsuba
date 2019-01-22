@@ -90,8 +90,7 @@ public:
 
     /// Are the following two versions compatible?
     inline bool isCompatible(const Version &other) const {
-        return m_major == other.m_major &&
-            m_minor == other.m_minor;
+        return m_major == other.m_major;
     }
 
     /// Turn into a string of the form "major.minor.release"
