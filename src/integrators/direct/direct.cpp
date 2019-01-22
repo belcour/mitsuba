@@ -209,7 +209,7 @@ public:
 
         if (numDirectSamples > 1) {
             sampleArray = rRec.sampler->next2DArray(numDirectSamples);
-        } else {
+        } else if(numDirectSamples == 1) {
             sample = rRec.nextSample2D(); sampleArray = &sample;
         }
 
@@ -250,7 +250,7 @@ public:
 
         if (numBSDFSamples > 1) {
             sampleArray = rRec.sampler->next2DArray(numBSDFSamples);
-        } else {
+        } else if(numBSDFSamples == 1) {
             sample = rRec.nextSample2D(); sampleArray = &sample;
         }
 
