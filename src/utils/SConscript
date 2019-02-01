@@ -7,4 +7,5 @@ plugins += env.SharedLibrary('kdbench', ['kdbench.cpp'])
 plugins += env.SharedLibrary('tonemap', ['tonemap.cpp'])
 #plugins += env.SharedLibrary('rdielprec', ['rdielprec.cpp'])
 
+plugins += env.SharedLibrary('denoise', ['denoise.cpp'], LIBS = ['OpenImageDenoise'])
 Export('plugins')
