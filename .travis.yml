@@ -1,0 +1,26 @@
+language: cpp
+
+os: linux
+dist: trusty
+sudo: required
+
+addons:
+    apt:
+        sources:
+            - ubuntu-toolchain-r-test
+        packages:
+            - g++
+            - libeigen3-dev
+            - libpng-dev
+            - libtiff-dev
+            - libopenexr-dev
+            - libqt5*
+            - qt5-default
+            - libboost-all-dev
+
+script:
+   scons --cfg=./build/config-linux-gcc.py
+
+after_failure:
+   - cat config.log;
+
