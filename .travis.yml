@@ -17,6 +17,7 @@ addons:
             - libqt5*
             - qt5-default
             - libboost-all-dev
+            - libxerces-c-dev
 
 script:
    scons --cfg=./build/config-linux-gcc.py
