@@ -18,6 +18,8 @@ addons:
             - qt5-default
             - libboost-all-dev
             - libxerces-c-dev
+            - libglewmx-dev
+            - libfftw3-dev
 
 script:
    scons --cfg=./build/config-linux-gcc.py
