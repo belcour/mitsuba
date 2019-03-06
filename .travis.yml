@@ -10,6 +10,7 @@ addons:
             - ubuntu-toolchain-r-test
         packages:
             - g++-6
+            - gcc-6
             - libeigen3-dev
             - libpng-dev
             - libtiff-dev
@@ -22,7 +23,9 @@ addons:
             - libfftw3-dev
 
 script:
-   scons --cfg=./build/config-linux-gcc.py
+   - export CC=gcc-6
+   - export CXX=g++-6
+   - scons --cfg=./build/config-linux-gcc.py
 
 after_failure:
    - cat config.log;
