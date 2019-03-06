@@ -25,7 +25,7 @@ addons:
 script:
    - export CC=gcc-6
    - export CXX=g++-6
-   - scons --cfg=./build/config-linux-gcc.py
+   - scons --cfg=./build/config-travis.py
 
 after_failure:
    - cat config.log;
