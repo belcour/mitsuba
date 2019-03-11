@@ -82,7 +82,7 @@ public:
      * sampling from the other direction, which is why there is no
      * \c pdfFailureRev field.
      */
-    Float pdfFailure;
+	Float pdfFailure;
 
     /// Pointer to the associated medium
     const Medium *medium;
@@ -165,6 +165,10 @@ public:
 
     /// For homogeneous media: return the extinction coefficient
     inline const Spectrum &getSigmaT() const { return m_sigmaT; }
+
+    virtual void setSigmaAST(const Spectrum &sigmaT, const Spectrum &albedo); // # add by GY
+
+	virtual void setMediumProp(const Float &density, const Spectrum &albedo, const Vector &orientation); // # add by GY
 
     //! @}
     // =============================================================

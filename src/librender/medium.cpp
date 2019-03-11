@@ -44,11 +44,24 @@ Medium::Medium(Stream *stream, InstanceManager *manager)
     m_sigmaT = m_sigmaA + m_sigmaS;
 }
 
+/// # add by GY
+void Medium::setSigmaAST(const Spectrum &sigmaT, const Spectrum &albedo) {
+    Log(EError, "%s::setSigmaAST() is not implemented!",
+        getClass()->getName().c_str());
+}
+
+/// # add by GY
+void Medium::setMediumProp(const Float &density, const Spectrum &albedo, const Vector &orientation) {
+	Log(EError, "%s::setMediumProp() is not implemented!",
+		getClass()->getName().c_str());
+}
+
+
 void Medium::addChild(const std::string &name, ConfigurableObject *child) {
     const Class *cClass = child->getClass();
 
     if (cClass->derivesFrom(MTS_CLASS(PhaseFunction))) {
-        Assert(m_phaseFunction == NULL);
+        Assert(m_phaseFunction == NULL); // # remove by GY
         m_phaseFunction = static_cast<PhaseFunction *>(child);
     } else {
         Log(EError, "Medium: Invalid child node! (\"%s\")",
