@@ -15,7 +15,14 @@ addons:
             - libpng-dev
             - libtiff-dev
             - libopenexr-dev
-            - libqt5*
+            - libqt5core5a
+            - libqt5gui5
+            - libqt5widgets5
+            - libqt5opengl5-dev
+            - libqt5network5
+            - libqt5test5
+            - libqt5xml5
+            - libqt5xmlpatterns5-dev
             - qt5-default
             - libboost-all-dev
             - libxerces-c-dev
