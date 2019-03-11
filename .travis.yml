@@ -1,0 +1,38 @@
+language: cpp
+
+os: linux
+dist: xenial
+sudo: required
+
+addons:
+    apt:
+        sources:
+            - ubuntu-toolchain-r-test
+        packages:
+            - g++-6
+            - gcc-6
+            - scons
+            - libeigen3-dev
+            - libpng-dev
+            - libtiff-dev
+            - libopenexr-dev
+            - libqt5core5a
+            - libqt5gui5
+            - libqt5widgets5
+            - libqt5opengl5-dev
+            - libqt5network5
+            - libqt5test5
+            - libqt5xml5
+            - libqt5xmlpatterns5-dev
+            - qt5-default
+            - libboost-all-dev
+            - libxerces-c-dev
+            - libglewmx-dev
+            - libfftw3-dev
+
+script:
+   - scons --cfg=./build/config-travis-xenial.py
+
+after_failure:
+   - cat config.log;
+
