@@ -11,6 +11,7 @@ addons:
         packages:
             - g++-6
             - gcc-6
+            - scons
             - libeigen3-dev
             - libpng-dev
             - libtiff-dev
