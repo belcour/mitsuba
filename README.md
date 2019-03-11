@@ -20,3 +20,7 @@ For compilation, usage, and a full plugin reference, please see the [official do
 ## Releases and scenes
 
 Pre-built binaries, as well as example scenes, are available on the [Mitsuba website](http://mitsuba-renderer.org/download.html).
+
+## Continuous Integration
+
+ - Linux: https://travis-ci.org/belcour/mitsuba.svg?branch=master
