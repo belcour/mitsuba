@@ -434,7 +434,7 @@ def enable_modules(self, modules, debug=False, crosscompiling=False) :
                 self["QT5_MOCCPPPATH"] = self["CPPPATH"]
                 return
         if sys.platform == "win32" or crosscompiling :
-                modules_libs = [m[:2]+'5'+m[2:] for m in modules]
+                modules_libs = modules
                 if crosscompiling:
                         transformedQtdir = transformToWinePath(self['QTDIR'])
                         self['QT5_MOC'] = "QTDIR=%s %s"%( transformedQtdir, self['QT5_MOC'])
