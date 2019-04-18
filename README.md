@@ -13,6 +13,18 @@ The renderer currently runs on Linux, MacOS X and Microsoft Windows and makes us
 
 Mitsuba comes with a command-line interface as well as a graphical frontend to interactively explore scenes. While navigating, a rough preview is shown that becomes increasingly accurate as soon as all movements are stopped. Once a viewpoint has been chosen, a wide range of rendering techniques can be used to generate images, and their parameters can be tuned from within the program.
 
+## Build
+
+Mitsuba uses [SCons](https://scons.org/) for building and specify different platforms (GNU/Linux, Windows, MacOSX) using configuration files that you can find in the `build` directory. To build with a specific configuration file, use the command:
+
+     $ scons --cfg=[file]
+
+### Debian/Ubuntu Linux
+
+To build Mitsuba on Debian/Ubuntu distributions, you will need the following packages:
+
+     $ apt-get install scons libeigen3-dev libpng-dev libtiff-dev libopenexr-dev libqt5core5a libqt5gui5 libqt5widgets5 libqt5opengl5-dev libqt5network5 libqt5test5 libqt5xml5 libqt5xmlpatterns5-dev qt5-default libboost-all-dev libxerces-c-dev libglewmx-dev libfftw3-dev
+
 ## Documentation
 
 For compilation, usage, and a full plugin reference, please see the [official documentation](http://mitsuba-renderer.org/docs.html).
