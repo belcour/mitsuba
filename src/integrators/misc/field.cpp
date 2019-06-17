@@ -141,15 +141,13 @@ public:
                 }
                 break;
             case EDistance:
-                result = Spectrum(its.t);
+                result = Spectrum(1.0 / (1.0+its.t));
                 break;
             case EGeometricNormal:
                 result.fromLinearRGB(its.geoFrame.n.x, its.geoFrame.n.y, its.geoFrame.n.z);
                 break;
-            case EShadingNormal: {
-                   auto normal = (its.shFrame.n + Vector3(1.0, 1.0, 1.0)) * 0.5;
-                   result.fromLinearRGB(normal.x, normal.y, normal.z);
-                }
+            case EShadingNormal:
+                result.fromLinearRGB(0.5*its.shFrame.n.x+0.5, 0.5*its.shFrame.n.y+0.5, 0.5*its.shFrame.n.z+0.5);
                 break;
             case EUV:
                 result.fromLinearRGB(its.uv.x, its.uv.y, 0);
@@ -169,7 +167,7 @@ public:
                 }
                 break;
             case EPrimIndex:
-                result = Spectrum((Float) its.primIndex);
+                result = Spectrum((Float) its.primIndex / 1024.0);
                 break;
             default:
                 Log(EError, "Internal error!");
