@@ -146,8 +146,10 @@ public:
             case EGeometricNormal:
                 result.fromLinearRGB(its.geoFrame.n.x, its.geoFrame.n.y, its.geoFrame.n.z);
                 break;
-            case EShadingNormal:
-                result.fromLinearRGB(its.shFrame.n.x, its.shFrame.n.y, its.shFrame.n.z);
+            case EShadingNormal: {
+                   auto normal = (its.shFrame.n + Vector3(1.0, 1.0, 1.0)) * 0.5;
+                   result.fromLinearRGB(normal.x, normal.y, normal.z);
+                }
                 break;
             case EUV:
                 result.fromLinearRGB(its.uv.x, its.uv.y, 0);
