@@ -68,37 +68,52 @@ public:
 
     int run(int argc, char **argv) {
         ref<FileResolver> fileResolver = Thread::getThread()->getFileResolver();
-        int optchar;
         std::string outputFilename;
         std::string albedoFilename;
         std::string normalFilename;
 
-        /* Parse command-line arguments */
-        while ((optchar = getopt(argc, argv, "htxag:m:f:r:b:c:o:p:s:B:F:")) != -1) {
-            switch (optchar) {
-                case 'h': {
-                        help();
-                        return 0;
-                    }
-                    break;
+        /* Parse command-line arguments
+         * First element in argv list is the name of the plugin `denoise`
+         * Last element in argv list is the name of the input file
+         */
+        for(auto i=1; i<argc-1; ++i)
+        {
+           // Only consider the case of '-[letter] argument'
+           if(argv[i][0] != '-')
+              continue;
 
-                case 'o':
-                    outputFilename = std::string(optarg);
-                    break;
-                
-                case 'a':
-                    albedoFilename = std::string(optarg);
-                    break;
-                
-                case 'n':
-                    normalFilename = std::string(optarg);
-                    break;
+           char  opt    = (argv[i][1] == '-') ? argv[i][2] : argv[i][1];
+           char* optarg = argv[i+1];
+           switch (opt)
+           {
+              case 'h': {
+                           help();
+                           return 0;
+                        }
+                        break;
+
+              case 'o':
+                        std::cout << " >> " << optarg << std::endl;
+                        outputFilename = std::string(optarg);
+                        break;
+
+              case 'a':
+                        albedoFilename = std::string(optarg);
+                        break;
+
+              case 'n':
+                        normalFilename = std::string(optarg);
+                        break;
             }
         }
 
         if(outputFilename.empty()) {
             SLog(EError, "No output file specified! Use `-o filename` in the command line");
         }
+
+        std::cout << " >> using normal map: " << normalFilename << std::endl;
+        std::cout << " >> using albedo map: " << albedoFilename << std::endl;
+        std::cout << " >> using output map: " << outputFilename << std::endl;
 
         /* I/O variables
          *
@@ -136,7 +151,7 @@ public:
         device.commit();
 
         /* Open files */
-        ref<Bitmap> input  = loadImage(argv[optind]);
+        ref<Bitmap> input  = loadImage(argv[argc-1]);
         Assert(input != nullptr);
         input = input->convert(outputPixelFormat, Bitmap::EFloat32);
 
