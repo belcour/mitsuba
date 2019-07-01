@@ -8,10 +8,16 @@ plugins += env.SharedLibrary('tonemap', ['tonemap.cpp'])
 #plugins += env.SharedLibrary('rdielprec', ['rdielprec.cpp'])
 
 conf = Configure(env)
-buildOpenImageDenoise = conf.CheckCXXHeader('OpenImageDenoise/oidn.hpp')
+hasOpenImageDenoise = conf.CheckCXXHeader('OpenImageDenoise/oidn.hpp')
 env = conf.Finish()
 
-if buildOpenImageDenoise:
+if hasOpenImageDenoise:
+   print('Using OpenImageDenoise for denoiser')
+   env.Append(CPPDEFINES = ['USE_OIID'])
    plugins += env.SharedLibrary('denoise', ['denoise.cpp'], LIBS = ['OpenImageDenoise'])
+else:
+   print('Using a cross-bilateral filter for denoiser')
+   plugins += env.SharedLibrary('denoise', ['denoise.cpp'])
+
 
 Export('plugins')
