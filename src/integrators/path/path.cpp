@@ -108,9 +108,14 @@ static StatsCounter avgPathLength("Path tracer", "Average path length", EAverage
  * }
  */
 class MIPathTracer : public MonteCarloIntegrator {
+private:
+    uint32_t m_minDepth = 0;
+
 public:
     MIPathTracer(const Properties &props)
-        : MonteCarloIntegrator(props) { }
+        : MonteCarloIntegrator(props) {
+        m_minDepth = props.getInteger("minDepth", 0);
+    }
 
     /// Unserialize from a binary data stream
     MIPathTracer(Stream *stream, InstanceManager *manager)
@@ -137,7 +142,8 @@ public:
                 /* If no intersection could be found, potentially return
                    radiance from a environment luminaire if it exists */
                 if ((rRec.type & RadianceQueryRecord::EEmittedRadiance)
-                    && (!m_hideEmitters || scattered))
+                    && (!m_hideEmitters || scattered)
+                    && rRec.depth >= m_minDepth)
                     Li += throughput * scene->evalEnvironment(ray);
                 break;
             }
@@ -146,11 +152,13 @@ public:
 
             /* Possibly include emitted radiance if requested */
             if (its.isEmitter() && (rRec.type & RadianceQueryRecord::EEmittedRadiance)
-                && (!m_hideEmitters || scattered))
+                && (!m_hideEmitters || scattered)
+                && rRec.depth >= m_minDepth)
                 Li += throughput * its.Le(-ray.d);
 
             /* Include radiance from a subsurface scattering model if requested */
-            if (its.hasSubsurface() && (rRec.type & RadianceQueryRecord::ESubsurfaceRadiance))
+            if (its.hasSubsurface() && (rRec.type & RadianceQueryRecord::ESubsurfaceRadiance)
+                && rRec.depth >= m_minDepth)
                 Li += throughput * its.LoSub(scene, rRec.sampler, -ray.d, rRec.depth);
 
             if ((rRec.depth >= m_maxDepth && m_maxDepth > 0)
@@ -194,7 +202,8 @@ public:
 
                         /* Weight using the power heuristic */
                         Float weight = miWeight(dRec.pdf, bsdfPdf);
-                        Li += throughput * value * bsdfVal * weight;
+                        if(rRec.depth >= m_minDepth)
+                           Li += throughput * value * bsdfVal * weight;
                     }
                 }
             }
@@ -255,7 +264,8 @@ public:
             /* If a luminaire was hit, estimate the local illumination and
                weight using the power heuristic */
             if (hitEmitter &&
-                (rRec.type & RadianceQueryRecord::EDirectSurfaceRadiance)) {
+                (rRec.type & RadianceQueryRecord::EDirectSurfaceRadiance) &&
+                m_minDepth >= rRec.depth) {
                 /* Compute the prob. of generating that direction using the
                    implemented direct illumination sampling technique */
                 const Float lumPdf = (!(bRec.sampledType & BSDF::EDelta)) ?
