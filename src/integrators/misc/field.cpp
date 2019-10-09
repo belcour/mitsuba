@@ -131,8 +131,12 @@ public:
 
         switch (m_field) {
             case EPosition:
-                result.fromLinearRGB(its.p.x, its.p.y, its.p.z);
+            {
+                const AABB aabb = rRec.scene->getAABB();
+                auto p = its.p - aabb.min;
+                result.fromLinearRGB(p.x, p.y, p.z);
                 break;
+            }
             case ERelativePosition: {
                     const Sensor *sensor = rRec.scene->getSensor();
                     const Transform &t = sensor->getWorldTransform()->eval(its.t).inverse();
