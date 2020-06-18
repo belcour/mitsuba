@@ -109,7 +109,7 @@ static StatsCounter avgPathLength("Path tracer", "Average path length", EAverage
  */
 class MIPathTracer : public MonteCarloIntegrator {
 private:
-    uint32_t m_minDepth = 0;
+    int32_t m_minDepth = 0;
 
 public:
     MIPathTracer(const Properties &props)
@@ -265,7 +265,7 @@ public:
                weight using the power heuristic */
             if (hitEmitter &&
                 (rRec.type & RadianceQueryRecord::EDirectSurfaceRadiance) &&
-                m_minDepth >= rRec.depth) {
+                (rRec.depth >= m_minDepth)) {
                 /* Compute the prob. of generating that direction using the
                    implemented direct illumination sampling technique */
                 const Float lumPdf = (!(bRec.sampledType & BSDF::EDelta)) ?

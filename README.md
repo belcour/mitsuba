@@ -23,7 +23,7 @@ Mitsuba uses [SCons](https://scons.org/) for building and specify different plat
 
 To build Mitsuba on Debian/Ubuntu distributions, you will need the following packages:
 
-     $ apt-get install scons libeigen3-dev libpng-dev libtiff-dev libopenexr-dev libqt5core5a libqt5gui5 libqt5widgets5 libqt5opengl5-dev libqt5network5 libqt5test5 libqt5xml5 libqt5xmlpatterns5-dev qt5-default libboost-all-dev libxerces-c-dev libglewmx-dev libfftw3-dev
+     $ apt-get install scons libeigen3-dev libpng-dev libtiff-dev libopenexr-dev libqt5core5a libqt5gui5 libqt5widgets5 libqt5opengl5-dev libqt5network5 libqt5test5 libqt5xml5 libqt5xmlpatterns5-dev qt5-default libboost-all-dev libxerces-c-dev libglewmx-dev libfftw3-dev libxxf86vm-dev
 
 ## Documentation
 
