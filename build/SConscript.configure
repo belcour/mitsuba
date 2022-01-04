@@ -108,19 +108,24 @@ env.Append(CPPPATH=env['BASEINCLUDE'])
 env.Append(CPPFLAGS=[])
 env.Append(LIBPATH=[])
 env.Append(LIBS=env['BASELIB'])
-if env.has_key('BOOSTINCLUDE'):
+env_dict = env.Dictionary()
+env_keys = env_dict.keys()
+def has_key(key):
+        return key in env_keys
+
+if has_key('BOOSTINCLUDE'):
         env.Prepend(CPPPATH=env['BOOSTINCLUDE'])
-if env.has_key('BOOSTLIBDIR'):
+if has_key('BOOSTLIBDIR'):
         env.Prepend(LIBPATH=env['BOOSTLIBDIR'])
-if env.has_key('BOOSTLIB'):
+if has_key('BOOSTLIB'):
         env.Prepend(LIBS=env['BOOSTLIB'])
-if env.has_key('BASELIBDIR'):
+if has_key('BASELIBDIR'):
         env.Append(LIBPATH=env['BASELIBDIR'])
-if env.has_key('OEXRINCLUDE'):
+if has_key('OEXRINCLUDE'):
         env.Prepend(CPPPATH=env['OEXRINCLUDE'])
-if env.has_key('OEXRLIBDIR'):
+if has_key('OEXRLIBDIR'):
         env.Prepend(LIBPATH=env['OEXRLIBDIR'])
-if env.has_key('EIGENINCLUDE'):
+if has_key('EIGENINCLUDE'):
         env.Prepend(CPPPATH=env['EIGENINCLUDE'])
 
 env.Decider('MD5-timestamp')
@@ -140,35 +145,35 @@ libPathPrevious = SCons.Util.semi_deepcopy(env['LIBPATH'])
 cppFlagsPrevious = SCons.Util.semi_deepcopy(env['CPPFLAGS'])
 cxxFlagsPrevious = SCons.Util.semi_deepcopy(env['CXXFLAGS'])
 
-if env.has_key('PNGINCLUDE'):
+if has_key('PNGINCLUDE'):
         env.Prepend(CPPPATH=env['PNGINCLUDE'])
-if env.has_key('PNGLIBDIR'):
+if has_key('PNGLIBDIR'):
         env.Prepend(LIBPATH=env['PNGLIBDIR'])
-if env.has_key('JPEGINCLUDE'):
+if has_key('JPEGINCLUDE'):
         env.Prepend(CPPPATH=env['JPEGINCLUDE'])
-if env.has_key('JPEGLIBDIR'):
+if has_key('JPEGLIBDIR'):
         env.Prepend(LIBPATH=env['JPEGLIBDIR'])
-if env.has_key('OEXRFLAGS'):
+if has_key('OEXRFLAGS'):
         env.Prepend(CPPFLAGS=env['OEXRFLAGS'])
-if env.has_key('OEXRINCLUDE'):
+if has_key('OEXRINCLUDE'):
         env.Prepend(CPPPATH=env['OEXRINCLUDE'])
-if env.has_key('OEXRLIBDIR'):
+if has_key('OEXRLIBDIR'):
         env.Prepend(LIBPATH=env['OEXRLIBDIR'])
-if env.has_key('XERCESINCLUDE'):
+if has_key('XERCESINCLUDE'):
         env.Prepend(CPPPATH=env['XERCESINCLUDE'])
-if env.has_key('XERCESLIBDIR'):
+if has_key('XERCESLIBDIR'):
         env.Prepend(LIBPATH=env['XERCESLIBDIR'])
-if env.has_key('GLINCLUDE'):
+if has_key('GLINCLUDE'):
         env.Prepend(CPPPATH=env['GLINCLUDE'])
-if env.has_key('GLFLAGS'):
+if has_key('GLFLAGS'):
         env.Prepend(CPPFLAGS=env['GLFLAGS'])
-if env.has_key('COLLADAINCLUDE'):
+if has_key('COLLADAINCLUDE'):
         env.Prepend(CPPPATH=env['COLLADAINCLUDE'])
-if env.has_key('COLLADALIBDIR'):
+if has_key('COLLADALIBDIR'):
         env.Prepend(LIBPATH=env['COLLADALIBDIR'])
-if env.has_key('FFTWINCLUDE'):
+if has_key('FFTWINCLUDE'):
         env.Prepend(CPPPATH=env['FFTWINCLUDE'])
-if env.has_key('FFTWLIBDIR'):
+if has_key('FFTWLIBDIR'):
         env.Prepend(LIBPATH=env['FFTWLIBDIR'])
 
 if not conf.CheckCXX():
